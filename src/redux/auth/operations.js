@@ -1,6 +1,32 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const showToast = (errorCode) => {
+  let errorMessage = "An unexpected error occurred. Please try again.";
+
+  if (errorCode === 400) {
+    errorMessage = "Bad request. Please check your input.";
+  } else if (errorCode === 401) {
+    errorMessage = "Email or password invalid. Please check your credentials.";
+  } else if (errorCode === 404) {
+    errorMessage =
+      "Service not found. The requested resource could not be located.";
+  } else if (errorCode === 409) {
+    errorMessage = "Such email already exists. Please use a different email.";
+  } else if (errorCode === 500) {
+    errorMessage =
+      "Server error. Something went wrong on our end. Please try again later.";
+  }
+
+  toast.error(errorMessage, {
+    position: toast.POSITION.TOP_CENTER,
+    autoClose: 5000,
+  });
+};
+
 export const instance = axios.create({
   baseURL: "https://vocab-builder-backend.p.goit.global/api/",
 });
@@ -21,11 +47,7 @@ export const signup = createAsyncThunk(
 
       return user.data;
     } catch (error) {
-      toast.warn(
-        error.response.status === 409
-          ? "Provided email already exists"
-          : "Bad request"
-      );
+      showToast(error.message, error.response?.status);
       return rejectWithValue(error.message);
     }
   }
@@ -41,11 +63,7 @@ export const signin = createAsyncThunk(
       localStorage.setItem("accessToken", user.data.token);
       return user.data;
     } catch (error) {
-      toast.warn(
-        error.response.status === 403
-          ? "Email doesn'\t exist or password is wrong"
-          : "Bad request"
-      );
+      showToast(error.message, error.response?.status);
       return rejectWithValue(error.message);
     }
   }
@@ -59,6 +77,7 @@ export const signOut = createAsyncThunk(
       localStorage.clear("refreshToken");
       localStorage.clear("accessToken");
     } catch (error) {
+      showToast(error.message, error.response?.status);
       return rejectWithValue(error.message);
     }
   }
@@ -77,6 +96,7 @@ export const currentUser = createAsyncThunk(
 
       return data;
     } catch (error) {
+      showToast(error.message, error.response?.status);
       return thunkAPI.rejectWithValue(error.message);
     }
   }

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "./shared/components/Loader/Loader";
@@ -60,6 +61,7 @@ function App() {
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <ToastContainer />
         </>
       )}
     </>

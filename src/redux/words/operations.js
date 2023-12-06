@@ -1,6 +1,27 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { instance } from "../auth/operations";
+
+const showToast = (error, errorCode) => {
+  let errorMessage = `Error: ${error}`;
+  if (errorCode === 400) {
+    errorMessage = "Bad request. Please check your input.";
+  } else if (errorCode === 401) {
+    errorMessage =
+      "Unauthorized. You don't have permission to access this resource.";
+  } else if (errorCode === 404) {
+    errorMessage = "Not found. The requested resource could not be found.";
+  } else if (errorCode === 500) {
+    errorMessage =
+      "Server error. Something went wrong on our end. Please try again later.";
+  }
+
+  toast.error(errorMessage, {
+    position: toast.POSITION.TOP_RIGHT,
+    autoClose: 3000,
+  });
+};
 
 export const fetchCategories = createAsyncThunk(
   "words/categories",
@@ -9,6 +30,7 @@ export const fetchCategories = createAsyncThunk(
       const { data } = await instance.get("words/categories");
       return data;
     } catch (error) {
+      showToast(error.message, error.response?.status);
       return rejectWithValue(error.message);
     }
   }
@@ -23,6 +45,7 @@ export const fetchWords = createAsyncThunk(
       );
       return data;
     } catch (error) {
+      showToast(error.message, error.response?.status);
       return rejectWithValue(error.message);
     }
   }
@@ -35,6 +58,7 @@ export const wordsCategories = createAsyncThunk(
       const { data } = await instance.get("words/categories");
       return data;
     } catch (error) {
+      showToast(error.message, error.response?.status);
       return rejectWithValue(error.message);
     }
   }
@@ -47,6 +71,7 @@ export const wordsCreate = createAsyncThunk(
       const response = await instance.post(`words/create`, body);
       return response.data;
     } catch (error) {
+      showToast(error.message, error.response?.status);
       return rejectWithValue(error.message);
     }
   }
@@ -59,6 +84,7 @@ export const wordsAdd = createAsyncThunk(
       const { data } = await instance.post(`words/add/${wordId}`);
       return data;
     } catch (error) {
+      showToast(error.message, error.response?.status);
       return rejectWithValue(error.message);
     }
   }
@@ -71,6 +97,7 @@ export const deleteWords = createAsyncThunk(
       await instance.delete(`words/delete/${wordsId}`);
       return wordsId;
     } catch (error) {
+      showToast(error.message, error.response?.status);
       return rejectWithValue(error.message);
     }
   }
@@ -86,7 +113,7 @@ export const wordsEdit = createAsyncThunk(
       });
       return data;
     } catch (error) {
-      ("z");
+      showToast(error.message, error.response?.status);
       return rejectWithValue(error.message);
     }
   }
@@ -100,6 +127,7 @@ export const wordsAll = createAsyncThunk(
 
       return data;
     } catch (error) {
+      showToast(error.message, error.response?.status);
       return rejectWithValue(error.message);
     }
   }
@@ -112,6 +140,7 @@ export const wordsOwn = createAsyncThunk(
       const response = await instance.get(`words/own?page=${page}`);
       return response.data;
     } catch (error) {
+      showToast(error.message, error.response?.status);
       return rejectWithValue(error.message);
     }
   }
@@ -124,6 +153,7 @@ export const wordsStatistics = createAsyncThunk(
       const { data } = await instance.get(`words/statistics`);
       return data;
     } catch (error) {
+      showToast(error.message, error.response?.status);
       return rejectWithValue(error.message);
     }
   }
@@ -136,6 +166,7 @@ export const wordsTasks = createAsyncThunk(
       const response = await instance.get(`words/tasks`);
       return response.data;
     } catch (error) {
+      showToast(error.message, error.response?.status);
       return rejectWithValue(error.message);
     }
   }
@@ -148,6 +179,7 @@ export const wordsAnswers = createAsyncThunk(
       const { data } = await instance.post("/words/answers", answers);
       return data;
     } catch (error) {
+      showToast(error.message, error.response?.status);
       return rejectWithValue(error.message);
     }
   }
