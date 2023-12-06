@@ -52,7 +52,6 @@ const Filtered = ({ currentPage, perPage }) => {
 
   useEffect(() => {
     dispatch(fetchCategories());
-
     if (id === "recommend") {
       dispatch(
         fetchWords({
@@ -65,7 +64,15 @@ const Filtered = ({ currentPage, perPage }) => {
       );
     }
     if (id === "dictionary") {
-      dispatch(wordsOwn({ page: currentPage }));
+      dispatch(
+        wordsOwn({
+          page: currentPage,
+          category: selectedCategory,
+          verb: selectedVerbType,
+          search: searchTerm,
+          perPage: perPage,
+        })
+      );
     }
     dispatch(wordsStatistics());
   }, [

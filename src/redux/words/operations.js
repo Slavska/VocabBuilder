@@ -135,9 +135,11 @@ export const wordsAll = createAsyncThunk(
 
 export const wordsOwn = createAsyncThunk(
   "words/own",
-  async ({ page }, { rejectWithValue }) => {
+  async ({ page, search, category, verb, perPage }, { rejectWithValue }) => {
     try {
-      const response = await instance.get(`words/own?page=${page}`);
+      const response = await instance.get(
+        `words/own?keyword=${search}&category=${category}&isIrregular=${verb}&page=${page}&perPage=${perPage}`
+      );
       return response.data;
     } catch (error) {
       showToast(error.message, error.response?.status);
