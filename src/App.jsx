@@ -29,11 +29,6 @@ function App() {
     dispatch(currentUser());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login");
-    }
-  }, [navigate]);
   return (
     <>
       {isRefreshing ? (
@@ -42,6 +37,10 @@ function App() {
         <>
           <Routes>
             <Route path="/" element={<Layout />}>
+              <Route
+                index
+                element={<PrivateRoute>{<ScreenPage />}</PrivateRoute>}
+              ></Route>
               <Route
                 path="/:id"
                 element={
