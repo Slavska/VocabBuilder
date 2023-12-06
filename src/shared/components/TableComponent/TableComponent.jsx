@@ -149,7 +149,10 @@ const TableComponent = ({
                                   onClose={closeModalEdit}
                                   isOpen={isOpenEdit}
                                 >
-                                  <EditWordForm id={row.original} />
+                                  <EditWordForm
+                                    id={row.original}
+                                    onClose={closeModalEdit}
+                                  />
                                 </Modal>
                               )}
                               <ButtonModal

@@ -304,7 +304,7 @@ const Filtered = ({ currentPage, perPage }) => {
             )}
             {isOpen && (
               <Modal onClose={closeModal} isOpen={isOpen}>
-                <AddForm />
+                <AddForm onClose={closeModal} />
               </Modal>
             )}
             <Button onClick={() => navigate("/training")}>

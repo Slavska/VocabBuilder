@@ -31,18 +31,17 @@ const initialValues = {
   ua: "",
 };
 
-const EditWordForm = (currentEl, onClose) => {
+const EditWordForm = ({ id, onClose }) => {
   const dispatch = useDispatch();
-
   const onSubmit = (values, { resetForm }) => {
     dispatch(
       wordsEdit({
-        wordsId: currentEl.id._id,
+        wordsId: id._id,
         values: {
           en: values.en,
           ua: values.ua,
-          category: currentEl.id.category,
-          isIrregular: currentEl.id.isIrregular,
+          category: id.category,
+          isIrregular: id.isIrregular,
         },
       })
     );
@@ -51,8 +50,8 @@ const EditWordForm = (currentEl, onClose) => {
     onClose();
   };
 
-  const onCancel = ({ resetForm }) => {
-    resetForm();
+  const onCancel = () => {
+    onClose();
   };
 
   return (

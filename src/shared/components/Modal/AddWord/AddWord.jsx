@@ -41,7 +41,7 @@ const initialValues = {
   isIrregular: "",
 };
 
-const AddForm = (onClose) => {
+const AddForm = ({ onClose }) => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.words.categories);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -75,9 +75,10 @@ const AddForm = (onClose) => {
     }
   };
 
-  const onCancel = ({ resetForm }) => {
-    resetForm();
+  const onCancel = () => {
+    onClose();
   };
+
   const customStyles = {
     option: (base, { isFocused, isSelected }) => ({
       ...base,
