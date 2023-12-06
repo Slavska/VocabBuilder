@@ -17,6 +17,7 @@ import orangeBookMobile2x from "../../../images/orange-book2xmobile.png";
 import orangeBookMobile1xWebp from "../../../images/orange-book1xmobileWebp.webp";
 import orangeBookMobile2xWebp from "../../../images/orange-book2xmobileWebp.webp";
 import {
+  AllWrap,
   Img,
   ListModal,
   ListWrap,
@@ -34,21 +35,24 @@ const WordList = ({ onClose }) => {
   return (
     <div>
       <TitleModal>Well done</TitleModal>
-      <ListWrap>
-        <TextModal>Сorrect answers:</TextModal>
-
-        <ListModal>
-          {doneWords.map((word) => (
-            <li key={word._id}>{word.en}</li>
-          ))}
-        </ListModal>
-        <TextModal>Mistakes:</TextModal>
-        <ListModal>
-          {notDoneWords.map((word) => (
-            <li key={word._id}>{word.en}</li>
-          ))}
-        </ListModal>
-      </ListWrap>
+      <AllWrap>
+        <ListWrap>
+          <TextModal>Сorrect answers:</TextModal>
+          <ListModal>
+            {doneWords.map((word) => (
+              <li key={word._id}>{word.en}</li>
+            ))}
+          </ListModal>
+        </ListWrap>
+        <ListWrap>
+          <TextModal>Mistakes:</TextModal>
+          <ListModal>
+            {notDoneWords.map((word) => (
+              <li key={word._id}>{word.en}</li>
+            ))}
+          </ListModal>
+        </ListWrap>
+      </AllWrap>
       <PictureModal>
         <source
           srcSet={orangeBookDesktop2xWebp}

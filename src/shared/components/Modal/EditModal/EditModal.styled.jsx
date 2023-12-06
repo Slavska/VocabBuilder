@@ -16,7 +16,7 @@ export const TextModal = styled.p`
   font-family: "Regular";
   font-size: 20px;
   line-height: 1.5;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 `;
 
 export const FieldModal = styled(Field)`
@@ -201,10 +201,23 @@ export const Img = styled.img`
 
 export const ListWrap = styled.div`
   display: flex;
+  gap: 10px;
+  flex-direction: column;
+`;
+export const AllWrap = styled.div`
+  display: flex;
   gap: 32px;
+  flex-direction: row;
 `;
 
 export const ListModal = styled.ul`
   display: flex;
   gap: 8px;
+  flex-direction: column;
+  color: #fcfcfc;
+
+  font-family: "Medium";
+  font-size: 20px;
+
+  line-height: normal;
 `;
