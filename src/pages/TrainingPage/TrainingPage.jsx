@@ -33,6 +33,7 @@ import bloodReportMobile1x from "../../shared/images/blood-report1xmobile.png";
 import bloodReportMobile2x from "../../shared/images/blood-report2xmobile.png";
 import bloodReportMobile1xWebp from "../../shared/images/blood-report1xmobileWebp.webp";
 import bloodReportMobile2xWebp from "../../shared/images/blood-report2xmobileWebp.webp";
+import { useNavigate } from "react-router-dom";
 
 const TrainingPage = () => {
   const [tasks, setTasks] = useState([]);
@@ -40,6 +41,7 @@ const TrainingPage = () => {
   const [userAnswers, setUserAnswers] = useState([]);
   const [disable, setDisable] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(wordsTasks())
@@ -93,8 +95,15 @@ const TrainingPage = () => {
                   </TextTraining>
                 </WrapTrainingAppsentText>
                 <WrapBtn>
-                  <BtnAdd type="submit">Add word</BtnAdd>
-                  <BtnCancel type="submit">Cancel</BtnCancel>
+                  <BtnAdd
+                    type="submit"
+                    onClick={() => navigate(`/home/dictionary?open=true`)}
+                  >
+                    Add word
+                  </BtnAdd>
+                  <BtnCancel type="submit" onClick={() => navigate(-1)}>
+                    Cancel
+                  </BtnCancel>
                 </WrapBtn>
               </WrapTrainingAppsent>
               <Picture>

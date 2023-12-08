@@ -43,10 +43,13 @@ export const clearToken = () => {
 
 export const signup = createAsyncThunk(
   "auth/signup",
+
   async (body, { rejectWithValue }) => {
     try {
       const user = await instance.post("/users/signup", body);
-
+      setToken(user.data.token);
+      localStorage.setItem("refreshToken", user.data.token);
+      localStorage.setItem("accessToken", user.data.token);
       return user.data;
     } catch (error) {
       showToast(error.message, error.response?.status);
@@ -63,7 +66,6 @@ export const signin = createAsyncThunk(
       setToken(user.data.token);
       localStorage.setItem("refreshToken", user.data.token);
       localStorage.setItem("accessToken", user.data.token);
-      console.log(user.data.token);
       return user.data;
     } catch (error) {
       showToast(error.message, error.response?.status);

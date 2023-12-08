@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   deleteWords,
-  fetchCategories,
   fetchWords,
   wordsAdd,
   wordsAnswers,
+  wordsCategories,
   wordsCreate,
   wordsEdit,
   wordsOwn,
@@ -61,41 +61,47 @@ const wordsSlice = createSlice({
         state.isLoggedIn = true;
         state.isLoading = false;
       })
-
-      .addCase(fetchCategories.pending, handlePending)
-      .addCase(fetchCategories.rejected, handleRejected)
-      .addCase(fetchCategories.fulfilled, (state, action) => {
-        state.categories = action.payload;
-        state.isLoggedIn = true;
-        state.isLoading = false;
-      })
       .addCase(wordsStatistics.pending, handlePending)
       .addCase(wordsStatistics.rejected, handleRejected)
       .addCase(wordsStatistics.fulfilled, (state, action) => {
         state.statistics = action.payload.totalCount;
         state.isLoading = false;
+        state.isLoggedIn = true;
       })
       .addCase(wordsAdd.pending, handlePending)
       .addCase(wordsAdd.rejected, handleRejected)
       .addCase(wordsAdd.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.isLoggedIn = true;
       })
       .addCase(wordsAnswers.pending, handlePending)
       .addCase(wordsAnswers.rejected, handleRejected)
       .addCase(wordsAnswers.fulfilled, (state, action) => {
         state.result = action.payload;
         state.isLoading = false;
+        state.isLoggedIn = true;
+      })
+      .addCase(wordsCategories.pending, handlePending)
+      .addCase(wordsCategories.rejected, handleRejected)
+      .addCase(wordsCategories.fulfilled, (state, action) => {
+        state.categories = ["all", ...action.payload];
+        state.isLoading = false;
+        state.isLoggedIn = true;
       })
       .addCase(deleteWords.fulfilled, (state, action) => {
         state.ownWords = state.ownWords.filter(
           (word) => word._id !== action.payload
         );
+        state.isLoading = false;
+        state.isLoggedIn = true;
       })
       .addCase(wordsEdit.fulfilled, (state, action) => {
         const updatedWord = action.payload;
         const index = state.ownWords.findIndex(
           (word) => word._id === updatedWord._id
         );
+        state.isLoading = false;
+        state.isLoggedIn = true;
 
         if (index !== -1) {
           state.ownWords[index] = updatedWord;
@@ -114,6 +120,8 @@ const wordsSlice = createSlice({
         state.isLoading = false;
         state.ownWords = [action.payload, ...state.ownWords];
         state.words = [action.payload, ...state.words];
+
+        state.isLoggedIn = true;
       });
   },
 });

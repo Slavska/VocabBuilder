@@ -23,19 +23,6 @@ const showToast = (error, errorCode) => {
   });
 };
 
-export const fetchCategories = createAsyncThunk(
-  "words/categories",
-  async (_, { rejectWithValue }) => {
-    try {
-      const { data } = await instance.get("words/categories");
-      return data;
-    } catch (error) {
-      showToast(error.message, error.response?.status);
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
 export const fetchWords = createAsyncThunk(
   "words/all",
   async ({ page, search, category, verb }, { rejectWithValue }) => {

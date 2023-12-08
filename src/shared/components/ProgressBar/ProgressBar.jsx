@@ -18,6 +18,9 @@ const ProgressBar = ({ totalTasks, userAnswers }) => {
           color: "rgba(43, 214, 39, 1)",
           borderRadius: "50%",
           border: "5px solid rgba(212, 248, 211, 1)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       />
     </ProgressWrap>

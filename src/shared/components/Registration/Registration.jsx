@@ -73,11 +73,9 @@ function Registration() {
   };
 
   const onSubmit = (values, { resetForm }) => {
-    const { email, password } = values;
     dispatch(signup(values))
       .unwrap()
-      .then(() => dispatch(signin({ email, password })))
-      .then(() => navigate("/"))
+      .then(() => navigate("/home/recommend"))
       .then(() => resetForm());
   };
 

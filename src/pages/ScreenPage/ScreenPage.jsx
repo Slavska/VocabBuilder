@@ -19,7 +19,7 @@ import {
   WrapperDashboards,
 } from "../../shared/components/TableComponent/TableComponent.styled";
 import Filtered from "../../shared/components/Filtered/Filtered";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import sprite from "../../shared/images/symbol-defs.svg";
 import {
   Picture,
@@ -52,6 +52,11 @@ export const ScreenPage = () => {
   const { id } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = useSelector(totalPagesWords);
+  const location = useLocation();
+  const { search } = location;
+  const queryParams = new URLSearchParams(search);
+  const openParam = queryParams.get("open");
+
   // const [perPage, setPerPage] = useState("");
   // const perPage = useSelector(perPageWords);
 
@@ -185,7 +190,7 @@ export const ScreenPage = () => {
         )}
         {id === "dictionary" && (
           <>
-            <Filtered currentPage={currentPage} />
+            <Filtered currentPage={currentPage} open={openParam} />
             <TableComponent columns={columnsDictionary} data={dictionary} />
           </>
         )}

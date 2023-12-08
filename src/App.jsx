@@ -11,7 +11,7 @@ import Layout from "./pages/Layout/Layout";
 import AuthPage from "./pages/AuthPage/AuthPage";
 
 import { currentUser } from "./redux/auth/operations";
-import { selectIsRefreshing } from "./redux/auth/authSelectors";
+import { selectIsRefreshing, selectToken } from "./redux/auth/authSelectors";
 
 import { PublicRoute } from "./PublicRoute";
 
@@ -22,10 +22,8 @@ import TrainingPage from "./pages/TrainingPage/TrainingPage";
 function App() {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(selectIsRefreshing);
-  console.log("Component is mounting...");
 
   useEffect(() => {
-    console.log("Effect is running...");
     dispatch(currentUser());
   }, [dispatch]);
 

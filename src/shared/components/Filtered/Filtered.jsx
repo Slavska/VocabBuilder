@@ -22,7 +22,6 @@ import sprite from "../../images/symbol-defs.svg";
 
 import debounce from "lodash.debounce";
 import {
-  fetchCategories,
   fetchWords,
   wordsCategories,
   wordsOwn,
@@ -38,17 +37,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Modal } from "../Modal/Modal";
 import AddForm from "../Modal/AddWord/AddWord";
 
-const Filtered = ({ currentPage, perPage }) => {
+const Filtered = ({ currentPage, perPage, open }) => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.words.categories);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [addOpen, setAddOpen] = useState(open);
 
   const statistics = useSelector(statisticsWords);
   const { id } = useParams();
-  const [allCategories, setAllCategories] = useState([]);
   const [selectedVerbType, setSelectedVerbType] = useState("");
   const [searchTermDebounce, setSearchTermDebounce] = useState("");
 
@@ -87,9 +86,10 @@ const Filtered = ({ currentPage, perPage }) => {
 
   useEffect(() => {
     dispatch(wordsStatistics());
-    dispatch(wordsCategories())
-      .then((response) => setAllCategories(["all", ...response.payload]))
-      .catch((error) => console.error("Error fetching categories:", error));
+
+    if (categories.length < 1) {
+      dispatch(wordsCategories());
+    }
   }, [dispatch]);
 
   const handleVerbTypeChange = (e) => {
@@ -140,6 +140,7 @@ const Filtered = ({ currentPage, perPage }) => {
 
   const closeModal = () => {
     setIsOpen(false);
+    setAddOpen(false);
   };
 
   const handleSearchTermChange = (e) => {
@@ -292,7 +293,7 @@ const Filtered = ({ currentPage, perPage }) => {
             <SelectStyled
               isSearchable={false}
               placeholder={"Categories"}
-              options={allCategories.map((category) => ({
+              options={categories.map((category) => ({
                 value: category,
                 label: category,
               }))}
@@ -317,7 +318,7 @@ const Filtered = ({ currentPage, perPage }) => {
                 </SvgArrow>
               </Button>
             )}
-            {isOpen && (
+            {(isOpen || addOpen) && (
               <Modal onClose={closeModal} isOpen={isOpen}>
                 <AddForm onClose={closeModal} />
               </Modal>

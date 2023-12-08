@@ -127,8 +127,9 @@ const TrainingRoom = ({
             ])
           )
         : answers;
+    } else {
+      dispatch(wordsAnswers(answers));
     }
-    dispatch(wordsAnswers(answers));
     setUaTranslation("");
     setEnTranslation("");
     openModal();

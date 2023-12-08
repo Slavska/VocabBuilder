@@ -8,6 +8,7 @@ export const WrapTraining = styled.div`
   background: #f8f8f8;
   width: 100vw;
   height: 100vh;
+  position: relative;
   @media screen and (min-width: ${tablet}) {
     padding: 20px 30px 0 30px;
   }
