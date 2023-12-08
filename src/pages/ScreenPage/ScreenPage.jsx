@@ -8,6 +8,7 @@ import "@mui/material/styles";
 import {
   allWords,
   ownWords,
+  perPageWords,
   totalPagesWords,
 } from "../../redux/words/wordsSelector";
 import TableComponent from "../../shared/components/TableComponent/TableComponent";
@@ -51,16 +52,17 @@ export const ScreenPage = () => {
   const { id } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = useSelector(totalPagesWords);
-  const [perPage, setPerPage] = useState("");
+  // const [perPage, setPerPage] = useState("");
+  // const perPage = useSelector(perPageWords);
 
-  useEffect(() => {
-    if (id === "recommend") {
-      setPerPage(recommend.length);
-    }
-    if (id === "dictionary") {
-      setPerPage(dictionary.length);
-    }
-  }, [dispatch, recommend, dictionary, id]);
+  // useEffect(() => {
+  //   if (id === "recommend") {
+  //     setPerPage(recommend.length);
+  //   }
+  //   if (id === "dictionary") {
+  //     setPerPage(dictionary.length);
+  //   }
+  // }, [dispatch, recommend, dictionary, id]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -177,13 +179,13 @@ export const ScreenPage = () => {
       <WrapperDashboards>
         {id === "recommend" && (
           <>
-            <Filtered currentPage={currentPage} perPage={perPage} />
+            <Filtered currentPage={currentPage} />
             <TableComponent columns={columnsRecommend} data={recommend} />
           </>
         )}
         {id === "dictionary" && (
           <>
-            <Filtered currentPage={currentPage} perPage={perPage} />
+            <Filtered currentPage={currentPage} />
             <TableComponent columns={columnsDictionary} data={dictionary} />
           </>
         )}

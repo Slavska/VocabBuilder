@@ -60,7 +60,7 @@ const Filtered = ({ currentPage, perPage }) => {
           category: selectedCategory,
           verb: selectedVerbType,
           search: searchTermDebounce,
-          perPage: perPage,
+          // perPage: perPage,
         })
       );
     }
@@ -71,7 +71,7 @@ const Filtered = ({ currentPage, perPage }) => {
           category: selectedCategory,
           verb: selectedVerbType,
           search: searchTermDebounce,
-          perPage: perPage,
+          // perPage: perPage,
         })
       );
     }
@@ -82,7 +82,7 @@ const Filtered = ({ currentPage, perPage }) => {
     selectedCategory,
     selectedVerbType,
     searchTermDebounce,
-    perPage,
+    // perPage,
   ]);
 
   useEffect(() => {

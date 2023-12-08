@@ -38,10 +38,10 @@ export const fetchCategories = createAsyncThunk(
 
 export const fetchWords = createAsyncThunk(
   "words/all",
-  async ({ page, search, category, verb, perPage }, { rejectWithValue }) => {
+  async ({ page, search, category, verb }, { rejectWithValue }) => {
     try {
       const { data } = await instance.get(
-        `words/all?keyword=${search}&category=${category}&isIrregular=${verb}&page=${page}&perPage=${perPage}`
+        `words/all?keyword=${search}&category=${category}&isIrregular=${verb}&page=${page}`
       );
       return data;
     } catch (error) {
@@ -135,10 +135,10 @@ export const wordsAll = createAsyncThunk(
 
 export const wordsOwn = createAsyncThunk(
   "words/own",
-  async ({ page, search, category, verb, perPage }, { rejectWithValue }) => {
+  async ({ page, search, category, verb }, { rejectWithValue }) => {
     try {
       const response = await instance.get(
-        `words/own?keyword=${search}&category=${category}&isIrregular=${verb}&page=${page}&perPage=${perPage}`
+        `words/own?keyword=${search}&category=${category}&isIrregular=${verb}&page=${page}`
       );
       return response.data;
     } catch (error) {
