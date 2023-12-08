@@ -43,9 +43,19 @@ export const SvgSearch = styled.svg`
   height: 20px;
   stroke: rgba(18, 20, 23, 1);
   fill: rgba(18, 20, 23, 0);
+`;
+
+export const SearchButton = styled.button`
   position: absolute;
   top: 14px;
   right: 14px;
+  border: none;
+  background: transparent;
+  &:hover,
+  &:focus {
+    opacity: 0.4;
+    outline: none;
+  }
 `;
 
 export const Label = styled.label`
@@ -128,12 +138,13 @@ export const StyledRadio = styled.input`
   border-radius: 50%;
   transition: all 0.1s ease-in-out;
   cursor: pointer;
+  box-sizing: border-box;
   &::after {
     content: "";
     display: block;
     border-radius: 50%;
-    width: 12px;
-    height: 12px;
+    width: 11px;
+    height: 11px;
     margin: 2px;
   }
   &:checked::after {
@@ -154,6 +165,7 @@ export const StyledLabel = styled.label`
   font-size: 14px;
   line-height: normal;
   cursor: pointer;
+  align-items: center;
 
   gap: 8px;
 `;

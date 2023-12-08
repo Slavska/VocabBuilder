@@ -46,4 +46,38 @@ export const Text = styled.p`
   font-size: 16px;
   line-height: 1.5;
   margin-top: 16px;
+  padding-bottom: 23px;
+  @media screen and (min-width: ${breakpoints.mobile}) {
+    padding-bottom: 43px;
+  }
+`;
+export const TextRegister = styled.p`
+  display: none;
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    color: rgba(18, 20, 23, 0.8);
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-top: 16px;
+    display: block;
+  }
+`;
+
+export const WelcomeImg = styled.img`
+  width: 247px;
+  height: 191px;
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    display: none;
+  }
+  @media screen and (min-width: ${breakpoints.desktop}) {
+    width: 498px;
+    height: 435px;
+    display: block;
+  }
+`;
+
+export const PictureWrap = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 `;

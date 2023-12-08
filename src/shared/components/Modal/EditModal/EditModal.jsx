@@ -26,13 +26,13 @@ const schema = yup.object({
     .matches(/^(?![A-Za-z])[А-ЯІЄЇҐґа-яієїʼ\s]+$/u, "Invalid Ukrainian format"),
 });
 
-const initialValues = {
-  en: "",
-  ua: "",
-};
-
 const EditWordForm = ({ id, onClose }) => {
   const dispatch = useDispatch();
+
+  const initialValues = {
+    en: id.en || "",
+    ua: id.ua || "",
+  };
   const onSubmit = (values, { resetForm }) => {
     dispatch(
       wordsEdit({
@@ -59,7 +59,6 @@ const EditWordForm = ({ id, onClose }) => {
       initialValues={initialValues}
       validationSchema={schema}
       onSubmit={onSubmit}
-      onCancel={onCancel}
     >
       <Form>
         <WrapFormalModal>

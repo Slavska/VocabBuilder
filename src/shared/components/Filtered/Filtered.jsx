@@ -15,6 +15,7 @@ import {
   StyledRadio,
   StyledLabel,
   WrapRadioBtn,
+  SearchButton,
 } from "./Filtered.styled";
 import icon from "../../images/symbol-defs.svg";
 import sprite from "../../images/symbol-defs.svg";
@@ -49,16 +50,16 @@ const Filtered = ({ currentPage, perPage }) => {
   const { id } = useParams();
   const [allCategories, setAllCategories] = useState([]);
   const [selectedVerbType, setSelectedVerbType] = useState("");
+  const [searchTermDebounce, setSearchTermDebounce] = useState("");
 
   useEffect(() => {
-    dispatch(fetchCategories());
     if (id === "recommend") {
       dispatch(
         fetchWords({
           page: currentPage,
           category: selectedCategory,
           verb: selectedVerbType,
-          search: searchTerm,
+          search: searchTermDebounce,
           perPage: perPage,
         })
       );
@@ -69,23 +70,23 @@ const Filtered = ({ currentPage, perPage }) => {
           page: currentPage,
           category: selectedCategory,
           verb: selectedVerbType,
-          search: searchTerm,
+          search: searchTermDebounce,
           perPage: perPage,
         })
       );
     }
-    dispatch(wordsStatistics());
   }, [
     dispatch,
     id,
     currentPage,
     selectedCategory,
     selectedVerbType,
-    searchTerm,
+    searchTermDebounce,
     perPage,
   ]);
 
   useEffect(() => {
+    dispatch(wordsStatistics());
     dispatch(wordsCategories())
       .then((response) => setAllCategories(["all", ...response.payload]))
       .catch((error) => console.error("Error fetching categories:", error));
@@ -113,8 +114,8 @@ const Filtered = ({ currentPage, perPage }) => {
             <StyledLabel>
               <StyledRadio
                 type="radio"
-                value="true"
-                checked={selectedVerbType === "true"}
+                value="false"
+                checked={selectedVerbType === "false"}
                 onChange={handleVerbTypeChange}
               />
               Regular
@@ -122,8 +123,8 @@ const Filtered = ({ currentPage, perPage }) => {
             <StyledLabel>
               <StyledRadio
                 type="radio"
-                value="false"
-                checked={selectedVerbType === "false"}
+                value="true"
+                checked={selectedVerbType === "true"}
                 onChange={handleVerbTypeChange}
               />
               Irregular
@@ -139,6 +140,19 @@ const Filtered = ({ currentPage, perPage }) => {
 
   const closeModal = () => {
     setIsOpen(false);
+  };
+
+  const handleSearchTermChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      setSearchTermDebounce(searchTerm);
+    }
+  };
+  const handleSearch = () => {
+    setSearchTermDebounce(searchTerm);
   };
   const customStyles = {
     option: (base, { isFocused, isSelected }) => ({
@@ -264,13 +278,14 @@ const Filtered = ({ currentPage, perPage }) => {
                 type="text"
                 value={searchTerm}
                 placeholder="Find the word"
-                onChange={(e) => {
-                  setSearchTerm(e.target.value);
-                }}
+                onChange={handleSearchTermChange}
+                onKeyPress={handleKeyPress}
               />
-              <SvgSearch>
-                <use href={icon + "#icon-search"}></use>
-              </SvgSearch>
+              <SearchButton onClick={handleSearch}>
+                <SvgSearch>
+                  <use href={icon + "#icon-search"}></use>
+                </SvgSearch>
+              </SearchButton>
             </Label>
           </div>
           <div>

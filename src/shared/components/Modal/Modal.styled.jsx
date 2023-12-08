@@ -22,16 +22,16 @@ export const StyledModal = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: auto;
+  width: 100%;
   height: auto;
   border-radius: 30px;
   z-index: 9999;
-  min-width: 335px;
-  min-height: 300px;
+  /* min-width: 335px;
+  min-height: 300px; */
   max-width: 630px;
-  @media (max-width: 374px) {
+  /* @media (max-width: 374px) {
     min-width: 50%;
-  }
+  } */
 `;
 
 export const StyledCloseButton = styled.button`

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -11,7 +11,7 @@ import Layout from "./pages/Layout/Layout";
 import AuthPage from "./pages/AuthPage/AuthPage";
 
 import { currentUser } from "./redux/auth/operations";
-import { selectIsRefreshing, selectToken } from "./redux/auth/authSelectors";
+import { selectIsRefreshing } from "./redux/auth/authSelectors";
 
 import { PublicRoute } from "./PublicRoute";
 
@@ -22,10 +22,10 @@ import TrainingPage from "./pages/TrainingPage/TrainingPage";
 function App() {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(selectIsRefreshing);
-  const isAuthenticated = useSelector(selectToken);
-  const navigate = useNavigate();
+  console.log("Component is mounting...");
 
   useEffect(() => {
+    console.log("Effect is running...");
     dispatch(currentUser());
   }, [dispatch]);
 

@@ -140,16 +140,16 @@ export const WrapperDashboards = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 8px 12px 0 8px;
+  padding: 8px 12px;
   @media screen and (min-width: ${mobile}) {
-    padding: 16px 24px 0 16px;
+    padding: 16px 24px;
   }
 
   @media screen and (min-width: ${tablet}) {
-    padding: 80px 32px 0 32px;
+    padding: 80px 32px;
   }
   @media screen and (min-width: ${desktop}) {
-    padding: 80px 100px 0 100px;
+    padding: 80px 100px;
   }
 `;
 

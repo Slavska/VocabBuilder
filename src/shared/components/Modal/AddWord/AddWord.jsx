@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as yup from "yup";
-import { ErrorMessage, Formik, Form } from "formik"; // Include Formik here
+import { ErrorMessage, Formik, Form } from "formik";
 import { useDispatch } from "react-redux";
 import { wordsCreate } from "../../../../redux/words/operations";
 import { SvgMap } from "../../TrainingRoom/TrainingRoom.styled";
@@ -11,6 +11,7 @@ import {
   FieldModal,
   ModalBtn,
   ModalBtnCancel,
+  StyledErrorAuth,
   StyledLabel,
   StyledRadio,
   TextLangModal,
@@ -22,7 +23,6 @@ import {
   WrapLangModal,
   WrapRadioBtn,
 } from "../EditModal/EditModal.styled";
-import { StyledErrorAuth } from "../../Login/Login.styled";
 
 const schema = yup.object({
   en: yup
@@ -166,7 +166,7 @@ const AddForm = ({ onClose }) => {
       boxShadow: "none",
       color: "#FCFCFC",
       fontFamily: "Medium",
-      width: "calc(100vw - 24px)",
+      width: "100%",
       maxWidth: "375px",
       padding: "14px 14px",
       border: "1px solid rgba(252, 252, 252, 0.30)",
@@ -200,8 +200,8 @@ const AddForm = ({ onClose }) => {
               <StyledRadio
                 name="Regular"
                 type="radio"
-                value="true"
-                checked={selectedVerbType === "true"}
+                value="false"
+                checked={selectedVerbType === "false"}
                 onChange={handleVerbTypeChange}
               />
               Regular
@@ -210,8 +210,8 @@ const AddForm = ({ onClose }) => {
               <StyledRadio
                 name="Irregular"
                 type="radio"
-                value="false"
-                checked={selectedVerbType === "false"}
+                value="true"
+                checked={selectedVerbType === "true"}
                 onChange={handleVerbTypeChange}
               />
               Irregular
@@ -233,8 +233,6 @@ const AddForm = ({ onClose }) => {
         initialValues={initialValues}
         validationSchema={schema}
         onSubmit={onSubmit}
-        onCancel={onCancel}
-        onChange={handleCategoryChange}
       >
         <Form>
           <div>

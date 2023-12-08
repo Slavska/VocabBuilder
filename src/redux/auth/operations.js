@@ -28,6 +28,9 @@ const showToast = (errorCode) => {
 
 export const instance = axios.create({
   baseURL: "https://vocab-builder-backend.p.goit.global/api/",
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 export const setToken = (token) => {
@@ -60,6 +63,7 @@ export const signin = createAsyncThunk(
       setToken(user.data.token);
       localStorage.setItem("refreshToken", user.data.token);
       localStorage.setItem("accessToken", user.data.token);
+      console.log(user.data.token);
       return user.data;
     } catch (error) {
       showToast(error.message, error.response?.status);

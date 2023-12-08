@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import { Field } from "formik";
+import { breakpoints } from "../../styles/breakpoints";
+
+const { mobile, tablet, desktop } = breakpoints;
 
 export const TitleModal = styled.h1`
   color: #fcfcfc;
@@ -63,17 +66,22 @@ export const TextLangModal = styled.p`
 
 export const WrapInputModal = styled.div`
   display: flex;
-  align-items: center;
-  flex-direction: row;
-  gap: 32px;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 16px;
   position: relative;
+  @media screen and (min-width: ${tablet}) {
+    flex-direction: row;
+    align-items: center;
+    gap: 32px;
+  }
 `;
 
 export const StyledErrorAuth = styled.div`
   position: absolute;
-  top: 60px;
+  top: 58px;
   left: 5px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
   color: #fcfcfc;
   transition: all 250ms linear;
@@ -82,9 +90,12 @@ export const StyledErrorAuth = styled.div`
 export const WrapFormalModal = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 70px;
+  margin-top: 40px;
   gap: 18px;
   margin-bottom: 32px;
+  @media screen and (min-width: ${tablet}) {
+    margin-top: 70px;
+  }
 `;
 
 export const ModalBtn = styled.button`
@@ -97,6 +108,7 @@ export const ModalBtn = styled.button`
   border: none;
   color: #121417;
   font-family: "SemiBold";
+  word-break: normal;
   font-size: 18px;
   line-height: 1.55;
   &:hover,
@@ -112,6 +124,7 @@ export const ModalBtnCancel = styled.button`
   padding: 14px 90px;
   justify-content: center;
   align-items: center;
+  word-break: normal;
   background: transparent;
   border: 1px solid rgba(252, 252, 252, 0.4);
   color: #fcfcfc;
@@ -129,7 +142,13 @@ export const WrapBtnModal = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   gap: 10px;
+  @media screen and (min-width: ${tablet}) {
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
 `;
 
 export const StyledRadio = styled.input`
@@ -145,8 +164,8 @@ export const StyledRadio = styled.input`
     content: "";
     display: block;
     border-radius: 50%;
-    width: 12px;
-    height: 12px;
+    width: 11px;
+    height: 11px;
     margin: 2px;
   }
   &:checked::after {
@@ -184,6 +203,7 @@ export const WrapRadioBtn = styled.div`
   display: flex;
   flex-direction: row;
   gap: 16px;
+  margin-top: 8px;
 `;
 
 export const PictureModal = styled.picture`

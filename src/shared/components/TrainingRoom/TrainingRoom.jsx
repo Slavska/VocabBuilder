@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { wordsAnswers } from "../../../redux/words/operations";
 import sprite from "../../images/symbol-defs.svg";
 import { Modal } from "../Modal/Modal";
@@ -22,10 +23,17 @@ import {
   WrapTranslator,
 } from "./TrainingRoom.styled";
 
-const TrainingRoom = ({ currentTask, onNextClick, onSaveClick, disable }) => {
+const TrainingRoom = ({
+  currentTask,
+  onNextClick,
+  disable,
+  tasks,
+  currentTaskIndex,
+}) => {
   const [uaTranslation, setUaTranslation] = useState("");
   const [enTranslation, setEnTranslation] = useState("");
-  const [tasks, setTasks] = useState([]);
+
+  // const [tasks, setTasks] = useState([]);
   const [answers, setAnswers] = useState([]);
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
@@ -42,9 +50,9 @@ const TrainingRoom = ({ currentTask, onNextClick, onSaveClick, disable }) => {
     setIsOpen(false);
   };
 
-  useEffect(() => {
-    setTasks((prevTasks) => [...prevTasks, currentTask]);
-  }, [currentTask]);
+  // useEffect(() => {
+  //   setTasks((prevTasks) => [...prevTasks, currentTask]);
+  // }, [currentTask]);
 
   const handleTranslationChange = (e) => {
     if (isUaTask) {
@@ -56,36 +64,70 @@ const TrainingRoom = ({ currentTask, onNextClick, onSaveClick, disable }) => {
 
   const handleNextClick = () => {
     if (uaTranslation === "" && enTranslation === "") {
-      return console.log("please");
+      return toast.info("Check your input");
     }
-
     onNextClick({ ua: uaTranslation, en: enTranslation });
-    if (isUaTask) {
-      setAnswers((prevTasks) => [
-        ...prevTasks,
-        {
-          _id: currentTask._id,
-          ua: uaTranslation,
-          en: currentTask.en,
-          task: currentTask.task,
-        },
-      ]);
-    } else if (isEnTask) {
-      setAnswers((prevTasks) => [
-        ...prevTasks,
-        {
-          _id: currentTask._id,
-          ua: currentTask.ua,
-          en: enTranslation,
-          task: currentTask.task,
-        },
-      ]);
-    }
+    const updatedAnswers = isUaTask
+      ? [
+          ...answers,
+          {
+            _id: currentTask._id,
+            ua: uaTranslation,
+            en: currentTask.en,
+            task: currentTask.task,
+          },
+        ]
+      : isEnTask
+      ? [
+          ...answers,
+          {
+            _id: currentTask._id,
+            ua: currentTask.ua,
+            en: enTranslation,
+            task: currentTask.task,
+          },
+        ]
+      : answers;
+
+    setAnswers(updatedAnswers);
     setUaTranslation("");
     setEnTranslation("");
   };
+  useEffect(() => {
+    console.log("use", answers);
+  }, [answers]);
 
   const handleSaveClick = () => {
+    if (answers.length === currentTaskIndex) {
+      if (uaTranslation === "" && enTranslation === "") {
+        return toast.info("Check your input");
+      }
+      const updatedAnswers = isUaTask
+        ? dispatch(
+            wordsAnswers([
+              ...answers,
+              {
+                _id: currentTask._id,
+                ua: uaTranslation,
+                en: currentTask.en,
+                task: currentTask.task,
+              },
+            ])
+          )
+        : isEnTask
+        ? dispatch(
+            wordsAnswers([
+              ...answers,
+              {
+                _id: currentTask._id,
+                ua: currentTask.ua,
+                en: enTranslation,
+                task: currentTask.task,
+              },
+            ])
+          )
+        : answers;
+    }
     dispatch(wordsAnswers(answers));
     setUaTranslation("");
     setEnTranslation("");

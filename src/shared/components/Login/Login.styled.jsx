@@ -16,11 +16,12 @@ export const WrapperForm = styled.div`
 `;
 
 export const AuthWrapComponent = styled.div`
-  padding: 24px 12px 12px 12px;
+  padding: 24px 12px;
   background: rgba(133, 170, 159, 0.1);
   border-radius: 30px;
   @media screen and (min-width: ${breakpoints.mobile}) {
     max-width: 628px;
+    padding: 32px 16px;
   }
 
   @media screen and (min-width: ${breakpoints.tablet}) {
@@ -121,7 +122,7 @@ export const StyledLabelAuth = styled.span`
 
 export const StyledErrorAuth = styled.div`
   position: absolute;
-  top: 63px;
+  top: 50px;
   left: 5px;
   font-size: 10px;
   font-weight: 400;

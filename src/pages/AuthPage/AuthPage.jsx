@@ -14,7 +14,15 @@ import illustrationMobile1x from "../../shared/images/illustration1xmobile.png";
 import illustrationMobile2x from "../../shared/images/illustration2xmobile.png";
 import illustrationMobile1xWebp from "../../shared/images/illustration1xmobileWebp.webp";
 import illustrationMobile2xWebp from "../../shared/images/illustration2xmobileWebp.webp";
-import { LogoWrap, WelcomePicture, WrapperMain, Text } from "./AuthPage.styled";
+import {
+  LogoWrap,
+  WelcomePicture,
+  WrapperMain,
+  Text,
+  WelcomeImg,
+  PictureWrap,
+  TextRegister,
+} from "./AuthPage.styled";
 
 const AuthPage = () => {
   const { id } = useParams();
@@ -28,7 +36,7 @@ const AuthPage = () => {
       <WrapperMain>
         {id === "login" && <Login />}
         {id === "registration" && <Registration />}
-        <div>
+        <PictureWrap>
           <WelcomePicture>
             <source
               srcSet={illustrationDesktop2xWebp}
@@ -63,10 +71,14 @@ const AuthPage = () => {
               media="(max-width: 767px) and (min-resolution: 2dppx)"
             />
             <source srcSet={illustrationMobile1x} media="(max-width: 767px)" />
-            <img src={illustrationMobile1x} alt="User" />
+            <WelcomeImg src={illustrationMobile1x} alt="User" />
           </WelcomePicture>
-          <Text>Word · Translation · Grammar · Progress</Text>
-        </div>
+          {id === "registration" ? (
+            <TextRegister>Word · Translation · Grammar · Progress</TextRegister>
+          ) : (
+            <Text>Word · Translation · Grammar · Progress</Text>
+          )}
+        </PictureWrap>
       </WrapperMain>
     </>
   );

@@ -12,26 +12,16 @@ import {
   REGISTER,
 } from "redux-persist/es/constants";
 import { wordsReducer } from "./words/wordSlice";
-// import { themeReducer } from './theme/theme-reducer';
 
 const isDevelopment = process.env.NODE_ENV === "development";
 
-// Persisting token field from auth slice to local storage
 const authPersistConfig = {
   key: "auth",
   storage,
-  whitelist: ["accessToken", "refreshToken", "theme"],
+  whitelist: ["accessToken", "refreshToken"],
 };
-
-// Persisting theme slice to local storage
-// const themePersistConfig = {
-//   key: 'theme',
-//   storage,
-// };
-
 const rootReducer = {
   auth: persistReducer(authPersistConfig, authReducer),
-  // theme: persistReducer(themePersistConfig, themeReducer),
   words: wordsReducer,
 };
 

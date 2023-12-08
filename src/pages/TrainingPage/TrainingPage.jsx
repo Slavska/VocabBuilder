@@ -49,14 +49,12 @@ const TrainingPage = () => {
 
   const handleNextClick = (translation) => {
     const currentTask = tasks[currentTaskIndex];
-
     if (currentTask && currentTaskIndex < tasks.length - 1) {
       const userAnswer = {
         task: currentTask.task,
         userTranslation: translation,
       };
-
-      setUserAnswers([...userAnswers, userAnswer]);
+      setUserAnswers((prevUserAnswers) => [...prevUserAnswers, userAnswer]);
       setCurrentTaskIndex(currentTaskIndex + 1);
     } else {
       setDisable(true);
@@ -76,6 +74,8 @@ const TrainingPage = () => {
             currentTask={tasks[currentTaskIndex]}
             onNextClick={handleNextClick}
             disable={disable}
+            tasks={tasks}
+            currentTaskIndex={currentTaskIndex}
           />
         ) : (
           <>
